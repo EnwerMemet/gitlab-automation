@@ -1,0 +1,10 @@
+stages:
+  - test
+
+include:
+  # Secret Detection
+  - template: Security/Secret-Detection.gitlab-ci.yml
+  # Static Application Security Testing (SAST)
+  - template: Jobs/SAST.gitlab-ci.yml
+  # Infrastructure as Code (IaC) Scanning
+  - template: Jobs/SAST-IaC.gitlab-ci.yml

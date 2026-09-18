@@ -1,0 +1,5 @@
+node_modules/
+.env
+ui-playwright/playwright-report/
+ui-playwright/test-results/
+ui-playwright/.auth/

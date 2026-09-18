@@ -7,7 +7,7 @@
 import http from "k6/http";
 import { group, sleep } from "k6";
 import { Rate } from "k6/metrics";
-import { logError } from "../../lib/gpt_k6_modules.js";
+import { logError } from "../lib/gpt_k6_modules.js";
 
 export let successRate = new Rate("successful_requests");
 

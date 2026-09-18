@@ -2,7 +2,7 @@
 import { group, sleep } from "k6";
 import { Rate } from "k6/metrics";
 import { logError } from "../../lib/gpt_k6_modules.js";
-import { createGroup, deleteGroup } from "../../lib/gpt_scenario_functions.js";
+import { createGroup, deleteGroup } from "../lib/gpt_scenario_functions.js";
 
 export let successRate = new Rate("successful_requests");
 

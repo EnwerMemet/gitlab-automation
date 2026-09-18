@@ -3,15 +3,15 @@
 import http from "k6/http";
 import { group, sleep } from "k6";
 import { Rate } from "k6/metrics";
-import { createGroup, deleteGroup } from "../../lib/gpt_scenario_functions.js";
-import { createProject, verifyMRSecretDetection } from "../../lib/gpt_custom_helper_functions.js";
+import { createGroup, deleteGroup } from "../lib/gpt_scenario_functions.js";
+import { createProject, verifyMRSecretDetection } from "../lib/gpt_custom_helper_functions.js";
 import { 
   getGitLabCiYaml, 
   getLeakedSecretsTxt, 
   getTerraformMainTf, 
   getVulnerableAppPy, 
   getSastRulesetToml 
-} from "../../lib/test_data_helpers.js";
+} from "../lib/test_data_helpers.js";
 
 export let successRate = new Rate("successful_requests");
 
@@ -130,10 +130,10 @@ export default function (data) {
   });
 }
 
-export function teardown(data) {
-  if (data?.groupId) {
-    sleep(1); 
-    deleteGroup(data.groupId);
-    console.log(`Cleaned up group ${data.groupId}`);
-  }
-}
+// export function teardown(data) {
+//   if (data?.groupId) {
+//     sleep(1); 
+//     deleteGroup(data.groupId);
+//     console.log(`Cleaned up group ${data.groupId}`);
+//   }
+// }

@@ -3,6 +3,17 @@
 https://gitlab.com/gitlab-org/quality/performance/-/tree/main?ref_type=heads
 https://gitlab.com/gitlab-org/security-products/demos/analyzer-configurations/kics/iac-getting-started
 
+
+## 🛡 Security & Vulnerability Management
+
+This repository is configured with automated security scanning and direct vulnerability reporting mechanisms:
+
+* **Security Policy & Advisories:** Security policy guidelines and advisories are active. Details on how to safely report security issues can be found in [SECURITY.md](./SECURITY.md) or via the repository's **Security** tab.
+* **Private Vulnerability Reporting:** Enabled. Security researchers and community members can privately disclose potential vulnerabilities directly to maintainers.
+* **Dependabot Alerts:** Enabled. Automatically monitors third-party dependencies and triggers alerts upon detecting known vulnerabilities.
+* **Code Scanning Alerts:** Enabled. Automatically analyzes code pushes and pull requests to detect common code errors, anti-patterns, and security defects.
+* **Secret Scanning Alerts:** Enabled. Continuously scans commits for exposed API keys, private tokens, and credentials.
+
 # GitLab Security Policy Test Automation Suite
 
 An automated performance and validation testing framework built with [k6](https://k6.io/) to verify end-to-end execution of GitLab Security Policy scanners (Secret Detection, Semgrep SAST, and KICS IaC SAST).

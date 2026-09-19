@@ -17,12 +17,7 @@ import {
   waitForPipelineCompletion 
 } from "../lib/pipeline_helpers.js";
 
-import { 
-  validateSecretDetectionJob, 
-  validateSemgrepSastJob, 
-  validateKicsIacSastJob 
-} from "../lib/security_job_validators.js";
-
+import { validateSecurityJob } from "../lib/security_job_validators.js";
 import * as testData from "../lib/test_data_helpers.js";
 
 export let successRate = new Rate("successful_requests");
@@ -83,14 +78,23 @@ export default function (data) {
   const jobs = jobsRes.status === 200 ? jobsRes.json() : [];
 
   group("API - Validate Secret Detection Job & Report", function () {
-    validateSecretDetectionJob(baseUrl, headers, projectId, jobs, successRate);
+    validateSecurityJob(baseUrl, headers, projectId, jobs, {
+      jobName: "secret_detection",
+      artifactPaths: "gl-secret-detection-report.json",
+    }, successRate);
   });
 
   group("API - Validate Semgrep SAST Job & Report", function () {
-    validateSemgrepSastJob(baseUrl, headers, projectId, jobs, successRate);
+    validateSecurityJob(baseUrl, headers, projectId, jobs, {
+      jobName: "semgrep-sast",
+      artifactPaths: "gl-sast-report.json",
+    }, successRate);
   });
 
   group("API - Validate KICS IaC SAST Job & Report", function () {
-    validateKicsIacSastJob(baseUrl, headers, projectId, jobs, successRate);
+    validateSecurityJob(baseUrl, headers, projectId, jobs, {
+      jobName: "kics-iac-sast",
+      artifactPaths: ["gl-sast-report.json", "gl-kics-sast-report.json"],
+    }, successRate);
   });
 }

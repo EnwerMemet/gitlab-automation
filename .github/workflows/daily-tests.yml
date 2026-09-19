@@ -1,33 +1,31 @@
 name: Daily Security & Performance Tests
 
 on:
-  # Automated daily schedule
+  # Automated run every day at 06:00 UTC
   schedule:
     - cron: '0 6 * * *'
 
-  # Enables manual trigger button in GitHub UI
+  # Enables manual execution button under GitHub Actions tab
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Target Environment'
-        required: false
-        default: 'staging'
 
 jobs:
   test:
+    name: Run k6 Security Validation Suite
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Install k6
         run: |
-          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo mkdir -p /etc/apt/keyrings
+          curl -fsSL https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/k6-archive-keyring.gpg
+          echo "deb [signed-by=/etc/apt/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
           sudo apt-get update
-          sudo apt-get install k6
+          sudo apt-get install -y k6
 
-      - name: Run k6 Tests
+      - name: Execute k6 Test Suite
         env:
           ENVIRONMENT_URL: ${{ secrets.ENVIRONMENT_URL }}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}

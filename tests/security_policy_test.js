@@ -20,9 +20,9 @@ import {
 import { validateSecurityJob } from "../lib/security_job_validators.js";
 import * as testData from "../lib/test_data_helpers.js";
 
-export let successRate = new Rate("successful_requests");
+export const successRate = new Rate("successful_requests");
 
-export let options = {
+export const options = {
   iterations: 1,
   vus: 1,
   thresholds: {
@@ -51,7 +51,7 @@ export function setup() {
   return { groupId, projectId, mrIid, baseUrl, headers };
 }
 
-export default function (data) {
+export default function securityPolicyTest(data) {
   if (!data.mrIid) {
     console.error("[EXECUTION ABORTED] Missing MR IID from setup");
     successRate.add(false);
